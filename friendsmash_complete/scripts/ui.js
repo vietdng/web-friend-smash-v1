@@ -23,7 +23,6 @@
 
 var gPlayerFBID;
 var gPlayerBombs = 0;
-var gPlayerLives = 0;
 var gPlayerCoins = 0;
 var gTournamentCountdown;
 
@@ -155,6 +154,11 @@ function createMenu() {
   } 
 }
 
+function updatePlayerUI() {
+  $('.player_bombs').html(gPlayerBombs);
+  $('.player_coins').html(gPlayerCoins);
+}
+
 function welcomePlayer(uid) {
     console.log("Welcoming player");
     var welcomeMsgContainer = document.createElement('div');
@@ -179,12 +183,9 @@ function welcomePlayer(uid) {
       });
 
       gPlayerBombs = 5;
-      gPlayerLives = 5;
       gPlayerCoins = 100;
           
-      $('.player_bombs').html(gPlayerBombs);
-      $('.player_lives').html(gPlayerLives);
-      $('.player_coins').html(gPlayerCoins);
+      updatePlayerUI();
 
       var coinsDisplay = document.createElement('div');
       coinsDisplay.className  = 'stats_display';
@@ -215,21 +216,6 @@ function welcomePlayer(uid) {
       bombsNumber.className   = 'player_bombs';
       bombsNumber.innerHTML   = gPlayerBombs;
       bombsDisplay.appendChild(bombsNumber);
-      
-      var livesDisplay = document.createElement('div');
-      livesDisplay.className  = 'stats_display';
-      livesDisplay.style.top  = '100px';
-      livesDisplay.style.left = '360px';
-      welcomeMsgContainer.appendChild(livesDisplay);
-      
-      var livesIcon = document.createElement('img');
-      livesIcon.setAttribute('src', 'images/heart40.png');
-      livesDisplay.appendChild(livesIcon);
-      
-      var livesNumber = document.createElement('span');
-      livesNumber.className   = 'player_lives';
-      livesNumber.innerHTML   = gPlayerLives;
-      livesDisplay.appendChild(livesNumber);
       
     } else {
           var welcomeMsg = document.createElement('div');
