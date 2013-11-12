@@ -436,7 +436,7 @@ function buyBombs(quantity, price) {
   if (price <= gPlayerCoins) {
     gPlayerBombs += parseInt(quantity);
     gPlayerCoins -= parseInt(price);
-    updatePlayer();
+    updatePlayerUI();
     closeStore();
     var success = showPopUp({img:'bomb64.png', title:'Bombs!'});
     success.innerHTML = "You bought "+quantity+" bombs!<br>Let's smash some friends!";
