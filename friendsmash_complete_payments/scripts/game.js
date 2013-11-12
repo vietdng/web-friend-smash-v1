@@ -36,7 +36,6 @@ var gLifeImages = Array();
 var gBombImages = Array();
 var gGameBombs;
 var gLives;
-var gInitialLives;
 var gExplosionParticles = Array();
 var gExplosionTimerLength = 100;
 var gExplosionTimer;
@@ -87,15 +86,10 @@ function initGame(challenge_fbid, challenge_name, initialBombs) {
     stage.appendChild(gSmashUIText);
   }
   gSmashUIText.innerHTML = "";
+  
+  gLives = 3;
 
-  gInitialLives = 3;
-  if (gPlayerLives > 0) { 
-    gInitialLives++;
-    gPlayerLives--;
-  }
-  gLives = gInitialLives;
-
-  for (var i=0; i<gInitialLives; ++i) {
+  for (var i=0; i<gLives; ++i) {
     var lifeID = 'ingame_life' + i;
     if (!document.getElementById(lifeID)) { 
       gLifeImages[i] = document.createElement('div');

@@ -121,21 +121,6 @@ function buildStore() {
   bombsNumber.innerHTML = ''+gPlayerBombs;
   bombsDisplay.appendChild(bombsNumber);
   
-  var livesDisplay = document.createElement('div');
-  livesDisplay.className  = 'stats_display';
-  livesDisplay.style.top  = '20px';
-  livesDisplay.style.left = '350px';
-  storeHeader.appendChild(livesDisplay);
-  
-  var livesIcon = document.createElement('img');
-  livesIcon.setAttribute('src', 'images/heart40.png');
-  livesDisplay.appendChild(livesIcon);
-  
-  var livesNumber = document.createElement('span');
-  livesNumber.className  = 'player_lives';
-  livesNumber.innerHTML = ''+gPlayerLives;
-  livesDisplay.appendChild(livesNumber);
-  
   var productsButton = document.createElement('div');
   productsButton.id         = 'products_button';
   productsButton.className  = 'store_button selected';
@@ -216,37 +201,6 @@ function showProducts() {
   buy_bombs3.innerHTML += "<div class='button_small'>Buy!</div>";
   buy_bombs3.setAttribute("onClick","javascript:buyBombs(50, 400)");
   storeContents.appendChild(buy_bombs3);
-  
-  //Lives
-  var buy_lives1 = document.createElement('div');
-  buy_lives1.className = "store_package";
-  buy_lives1.innerHTML = "<img src='images/heart_icon.png'/>";
-  buy_lives1.innerHTML += "<h3 class='quantity'>5 lives</h3>";
-  buy_lives1.innerHTML += "<span></span><img src='images/coin_bundle_icon.png'/>";
-  buy_lives1.innerHTML += "<h3>100 coins</h3>";
-  buy_lives1.innerHTML += "<div class='button_small'>Buy!</div>";
-  buy_lives1.setAttribute("onClick","javascript:buyLives(5, 100)");
-  storeContents.appendChild(buy_lives1);
-  
-  var buy_lives2 = document.createElement('div');
-  buy_lives2.className = "store_package";
-  buy_lives2.innerHTML = "<img src='images/heart_icon.png'/>";
-  buy_lives2.innerHTML += "<h3 class='quantity'>15 lives</h3>";
-  buy_lives2.innerHTML += "<span></span><img src='images/coin_bundle_icon.png'/>";
-  buy_lives2.innerHTML += "<h3>270 coins</h3>";
-  buy_lives2.innerHTML += "<div class='button_small'>Buy!</div>";
-  buy_lives2.setAttribute("onClick","javascript:buyLives(15, 270)");
-  storeContents.appendChild(buy_lives2);
-
-  var buy_lives3 = document.createElement('div');
-  buy_lives3.className = "store_package";
-  buy_lives3.innerHTML = "<img src='images/heart_icon.png'/>";
-  buy_lives3.innerHTML += "<h3 class='quantity'>30 lives</h3>";
-  buy_lives3.innerHTML += "<span></span><img src='images/coin_bundle_icon.png'/>";
-  buy_lives3.innerHTML += "<h3>400 coins</h3>";
-  buy_lives3.innerHTML += "<div class='button_small'>Buy!</div>";
-  buy_lives3.setAttribute("onClick","javascript:buyLives(30, 400)");
-  storeContents.appendChild(buy_lives3);
   
 }
 
@@ -490,18 +444,6 @@ function buyBombs(quantity, price) {
   else alert("Not enough coins!");
 }
 
-function buyLives(quantity, price) {
-  if (price <= gPlayerCoins) {
-    gPlayerLives += parseInt(quantity);
-    gPlayerCoins -= parseInt(price);
-    updatePlayer();
-    closeStore();
-    var success = showPopUp({img:'heart64.png', title:'Lives!'});
-    success.innerHTML = "You bought "+quantity+" lives!<br>Let's smash some friends!";
-  }
-  else alert("Not enough coins!");
-}
-
 function buyCoins(quantity) {
   var requestID = hash(64);
   console.log("Constructing Request ID: " + requestID);
@@ -578,12 +520,6 @@ function verifyPayment(data) {
   var success = showPopUp({img:'coin_bundle64.png', title:'Coins!'});
   success.innerHTML = "You bought " + data.quantity + " coins!<br>Let's smash some friends!";
 
-  $('.player_coins').html(gPlayerCoins);
-}
-
-function updatePlayer() {
-  $('.player_bombs').html(gPlayerBombs);
-  $('.player_lives').html(gPlayerLives);
   $('.player_coins').html(gPlayerCoins);
 }
 

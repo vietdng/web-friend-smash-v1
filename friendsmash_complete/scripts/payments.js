@@ -93,12 +93,6 @@ function buyBombs(quantity, price) {
 function buyLives(quantity, price) {
 }
 
-function updatePlayer() {
-  $('.player_bombs').html(gPlayerBombs);
-  $('.player_lives').html(gPlayerLives);
-  $('.player_coins').html(gPlayerCoins);
-}
-
 function buyCoins(quantity) {
 }
 

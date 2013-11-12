@@ -23,7 +23,6 @@
 
 var gPlayerFBID;
 var gPlayerBombs = 0;
-var gPlayerLives = 0;
 var gPlayerCoins = 0;
 var gTournamentCountdown;
 
@@ -155,6 +154,11 @@ function createMenu() {
   } 
 }
 
+function updatePlayerUI() {
+  $('.player_bombs').html(gPlayerBombs);
+  $('.player_coins').html(gPlayerCoins);
+}
+
 function welcomePlayer(uid) {
     console.log("Welcoming player");
     var welcomeMsgContainer = document.createElement('div');
@@ -179,12 +183,9 @@ function welcomePlayer(uid) {
       });
 
       gPlayerBombs = 5;
-      gPlayerLives = 5;
       gPlayerCoins = 100;
           
-      $('.player_bombs').html(gPlayerBombs);
-      $('.player_lives').html(gPlayerLives);
-      $('.player_coins').html(gPlayerCoins);
+      updatePlayerUI();
 
       var coinsDisplay = document.createElement('div');
       coinsDisplay.className  = 'stats_display';
@@ -215,21 +216,6 @@ function welcomePlayer(uid) {
       bombsNumber.className   = 'player_bombs';
       bombsNumber.innerHTML   = gPlayerBombs;
       bombsDisplay.appendChild(bombsNumber);
-      
-      var livesDisplay = document.createElement('div');
-      livesDisplay.className  = 'stats_display';
-      livesDisplay.style.top  = '100px';
-      livesDisplay.style.left = '360px';
-      welcomeMsgContainer.appendChild(livesDisplay);
-      
-      var livesIcon = document.createElement('img');
-      livesIcon.setAttribute('src', 'images/heart40.png');
-      livesDisplay.appendChild(livesIcon);
-      
-      var livesNumber = document.createElement('span');
-      livesNumber.className   = 'player_lives';
-      livesNumber.innerHTML   = gPlayerLives;
-      livesDisplay.appendChild(livesNumber);
       
     } else {
           var welcomeMsg = document.createElement('div');
@@ -431,3 +417,53 @@ function fbCallback(response) {
   console.log(response);
 }
 
+function showPopUp(options) {
+  options       = options || {};
+  var img_src   = options.img || false;
+  var titleMsg  = options.title || "";
+  var callback  = options.callback || null; 
+  
+  var background = document.createElement('div');
+  background.id         = 'modal_background';
+  stage.appendChild(background);
+  
+  var container = document.createElement('div');
+  container.id      = 'pop_up';
+  stage.appendChild(container);
+  
+  var closeButton = document.createElement('div');
+  closeButton.id    = 'close_button';
+  closeButton.setAttribute('onclick', 'javascript:closePopUp('+callback+')');
+  stage.appendChild(closeButton);
+  
+  var header = document.createElement('div');
+  container.appendChild(header);
+  
+  if(img_src) {
+    var image = document.createElement('img');
+    image.setAttribute('src', 'images/'+img_src);
+    header.appendChild(image);
+  }
+  
+  var title = document.createElement('h1');
+  title.innerHTML  = titleMsg;
+  header.appendChild(title);
+  
+  var content = document.createElement('div');
+  content.style.position  = 'absolute';
+  content.style.top       = '75px';
+  content.style.width     = '100%';
+  container.appendChild(content);
+  
+  $(background).animate({'opacity': 1}, 'fast');
+  $(container).animate({'opacity': 1}, 'normal');
+  $(closeButton).animate({'opacity': 1}, 'normal');
+  
+  return content;
+}
+
+function closePopUp(callback) {
+  $('#modal_background').animate({'opacity': 0}, 'normal', function(){ $('#modal_background').remove(); if(callback) callback();});
+  $('#pop_up').animate({'opacity': 0}, 'fast', function(){ $('#pop_up').remove()});
+  $('#close_button').animate({'opacity': 0}, 'fast', function(){ $('#close_button').remove()} );
+}
