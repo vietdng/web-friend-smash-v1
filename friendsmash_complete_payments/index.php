@@ -24,9 +24,9 @@
   require 'server/fb-php-sdk/facebook.php';
 
   // Production
-  $app_id = '480369938658210';
-  $app_secret = 'b99ab9885736ba30427e22152a561248';
-  $app_namespace = 'friendsmashsample';
+  $app_id = '1393332784218683';
+  $app_secret = '8048a1b66cca1c06b02bd90c9a547543';
+  $app_namespace = 'ct_friendsmashdev';
 
   $app_url = 'http://apps.facebook.com/' . $app_namespace . '/';
   $scope = 'email,publish_actions';
