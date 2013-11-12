@@ -1,3 +1,5 @@
+<?php
+
 /**
 * Copyright 2013 Facebook, Inc.
 *
@@ -19,6 +21,7 @@
 * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 * DEALINGS IN THE SOFTWARE.
 */
+?>
 
 <!DOCTYPE html>
 <html>
