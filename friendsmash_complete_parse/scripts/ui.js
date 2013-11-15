@@ -181,9 +181,9 @@ function welcomePlayer(uid) {
           profileImage.setAttribute('width', '148px');
           welcomeMsgContainer.appendChild(profileImage);
       });
-
-      gPlayerBombs = 5;
-      gPlayerCoins = 100;
+      
+      gPlayerBombs = Parse.User.current().get('bombs');
+      gPlayerCoins = Parse.User.current().get('coins');
           
       updatePlayerUI();
 

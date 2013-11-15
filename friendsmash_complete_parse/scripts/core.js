@@ -41,10 +41,6 @@ window.onload = function () {
     window.scrollTo(0, 1);
   }, 500);
   
-  setTimeout(function () {
-     init();
-   }, 1000)
-  
   stage = document.getElementById('stage');
 
   // Set the dimensions to the match the client
@@ -52,11 +48,6 @@ window.onload = function () {
   stage.style.width = '940px';
   stage.style.height = '570px';
   
-}
-
-
-function init() {
-  createMenu();
 }
 
 function BlockMove(event) {
