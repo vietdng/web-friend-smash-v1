@@ -400,7 +400,7 @@ function endGame() {
   gPlayerBombs -= gBombsUsed;  
   gPlayerCoins += gCoins;
 
-  updatePlayerUI();
+  updatePlayer();
   sendOG();
   sendScore();
   displayMenu(true);

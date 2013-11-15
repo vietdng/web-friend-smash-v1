@@ -87,6 +87,7 @@
       </div>
 
       <script src="scripts/core.js"></script>
+      <script src="scripts/parse.js"></script>
       <script src="scripts/game.js"></script>
       <script src="scripts/ui.js"></script>
       
@@ -100,10 +101,20 @@
             cookie: true,
           });
 
+          Parse.initialize("ILQ3MtsLG2uv7ZHFMm7ZHoE8BIAKwA1SySejgYDj", "ylEv4PMhC45mXfgZXYuCM2VIPgqZg8RwlPBAjKhC");
+
+          uid = null;
+
           FB.getLoginStatus(function(response) {
-            uid = response.authResponse.userID ? response.authResponse.userID : null;
+            if( response.authResponse ) {
+              uid = response.authResponse.userID;
+              Parse.FacebookUtils.logIn(
+                getLoginParamsFromAuthResponse(response.authResponse)
+              ).then(loginSuccessCallback, loginErrorCallback);
+            } else {
+              FB.login(init, {scope:'publish_actions'});
+            }
           });
       </script>
-
   </body>
 </html>
