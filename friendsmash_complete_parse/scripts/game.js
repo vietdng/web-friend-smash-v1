@@ -416,7 +416,7 @@ function endGame() {
   results.innerHTML += "<img src='images/coin_bundle64.png'>and grabbed "+gCoins+" coins!";
 }
 
-functions sendAnalytics() {
+function sendAnalytics() {
   var endTime = new Date();
   Parse.Analytics.track('game', {
     score: gScore,
