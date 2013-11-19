@@ -41,6 +41,8 @@ var gExplosionTimerLength = 100;
 var gExplosionTimer;
 var gBombsUsed;
 
+var gStartTime;
+
 var TO_RADIANS = Math.PI/180;
 
 var gCoins; 
@@ -141,6 +143,8 @@ function initGame(challenge_fbid, challenge_name, initialBombs) {
   gSpawnTimer = 0.7;
   gDoingGameover = false;
   gGameOverEntity = null;
+
+  gStartTime = new Date();
 }
 
 function onClick(e) {
@@ -404,9 +408,22 @@ function endGame() {
   sendOG();
   sendScore();
   displayMenu(true);
+
+  sendAnalytics();
+
   var results = showPopUp({img:'logo64.png', title:'Results'});
   results.innerHTML = "<img src='images/scores64.png'>You smashed "+gScore+" friends<br>";
   results.innerHTML += "<img src='images/coin_bundle64.png'>and grabbed "+gCoins+" coins!";
+}
+
+functions sendAnalytics() {
+  var endTime = new Date();
+  Parse.Analytics.track('game', {
+    score: gScore,
+    bombs_used: gBombsUsed,
+    play_time: endTime - gStartTime,
+    coins: gCoins
+  });
 }
 
 
