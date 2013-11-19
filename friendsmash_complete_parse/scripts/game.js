@@ -422,7 +422,8 @@ function sendAnalytics() {
     score: gScore.toString(),
     bombs_used: gBombsUsed.toString(),
     play_time: (endTime - gStartTime).toString(),
-    coins: gCoins.toString()
+    coins: gCoins.toString(),
+    lives: gLives.toString()
   });
 }
 
