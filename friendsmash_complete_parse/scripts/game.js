@@ -419,10 +419,10 @@ function endGame() {
 function sendAnalytics() {
   var endTime = new Date();
   Parse.Analytics.track('game', {
-    score: gScore,
-    bombs_used: gBombsUsed,
-    play_time: endTime - gStartTime,
-    coins: gCoins
+    score: gScore.toString(),
+    bombs_used: gBombsUsed.toString(),
+    play_time: (endTime - gStartTime).toString(),
+    coins: gCoins.toString()
   });
 }
 
