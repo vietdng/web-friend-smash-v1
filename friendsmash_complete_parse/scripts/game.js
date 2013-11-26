@@ -409,24 +409,10 @@ function endGame() {
   sendScore();
   displayMenu(true);
 
-  sendAnalytics();
-
   var results = showPopUp({img:'logo64.png', title:'Results'});
   results.innerHTML = "<img src='images/scores64.png'>You smashed "+gScore+" friends<br>";
   results.innerHTML += "<img src='images/coin_bundle64.png'>and grabbed "+gCoins+" coins!";
 }
-
-function sendAnalytics() {
-  var endTime = new Date();
-  Parse.Analytics.track('game', {
-    score: gScore.toString(),
-    bombs_used: gBombsUsed.toString(),
-    play_time: (endTime - gStartTime).toString(),
-    coins: gCoins.toString(),
-    lives: gLives.toString()
-  });
-}
-
 
 function getRandom(min, max) {
   var range = max-min;
