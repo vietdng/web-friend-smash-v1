@@ -24,9 +24,9 @@
   require 'server/fb-php-sdk/facebook.php';
 
   // Production
-  $app_id = 'YOUR APP ID';
-  $app_secret = 'YOUR APP SECRET';
-  $app_namespace = 'YOUR APP NAMESPACE';
+  $app_id = '1393332784218683';
+  $app_secret = '9f7f92e4dfa304d5c511953cb3288c51';
+  $app_namespace = 'ct_friendsmashdev';
 
   $app_url = 'http://apps.facebook.com/' . $app_namespace . '/';
   $scope = 'email,publish_actions';
@@ -68,7 +68,6 @@
       <link href="scripts/style.css" rel="stylesheet" type="text/css">
 
       <script src="scripts/jquery-1.8.3.js"></script>
-      <script src="scripts/jquery.jCounter-0.1.4.js"></script>
 
   </head>
 

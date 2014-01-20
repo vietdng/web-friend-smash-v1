@@ -68,8 +68,6 @@
       <link href="scripts/style.css" rel="stylesheet" type="text/css">
 
       <script src="scripts/jquery-1.8.3.js"></script>
-      <script src="scripts/jquery.jCounter-0.1.4.js"></script>
-
       <script type="text/javascript" src="//www.parsecdn.com/js/parse-1.2.12.min.js"></script>
 
   </head>

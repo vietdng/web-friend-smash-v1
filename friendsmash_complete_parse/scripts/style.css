@@ -89,6 +89,22 @@ body {
   vertical-align: top;
 }
 
+.buy_bomb {
+  width: 5px;
+  height: 25px;
+  position: absolute;
+  padding: 3px;
+  text-align: left;
+  margin: 5px auto;
+}
+
+.buy_bomb img {
+  margin-left: -20px;
+  margin-top: -7px;
+  margin-right: 2px;
+  vertical-align: top;
+}
+
 #menu_container {
   position: absolute;
 }
@@ -224,18 +240,18 @@ body {
 }
 
 #scoreboard_container {
-  max-height: 550px;
+  max-height: 560px;
   overflow-y: scroll;
   overflow-x: hidden;
   float: right;
   width: 452px;
-  padding-top: 20px;
+  padding-top: 10px;
   position: relative;
-  right: -4px;
+  right: -3px;
 }
 
-.scoreboard_tournament_stub {
-  background-image: url("../images/scoreboardentry_tournament.png");
+.scoreboard_header {
+  background-image: url("../images/scoreboardentry_header.png");
   width: 450px;
   height: 112px;
   right: 0;
@@ -243,17 +259,8 @@ body {
   margin-bottom: 10px;
 }
 
-.scoreboard_tournament_stub_time {
-  font: 18pt "Arial Narrow", Arial, sans-serif;
-  color: #262626;
-  text-align: center;
-  left: 120px;
-  top: 90px;
-  width: 310px;
-  position: absolute;
-}
 
-.scoreboard_stub {
+.scoreboard_entry {
   background-image: url("../images/scoreboardentry_right.png");
   width: 450px;
   height: 112px;
@@ -262,7 +269,7 @@ body {
   margin-bottom: 10px;
 }
 
-.scoreboard_stub_rank {
+.scoreboard_entry_rank {
   font: 60pt "Arial Narrow", Arial, sans-serif;
   color: #262626;
   position: relative;
@@ -271,7 +278,7 @@ body {
   text-align: left;
 }
 
-.scoreboard_stub_name {
+.scoreboard_entry_name {
   font: 26pt "Arial Narrow", Arial, sans-serif;
   color: #ebebeb;
   text-align: left;
@@ -280,7 +287,7 @@ body {
   position: relative;
 }
 
-.scoreboard_stub_score {
+.scoreboard_entry_score {
   font: 20pt "Arial Narrow", Arial, sans-serif;
   color: #ebebeb;
   text-align: left;
@@ -289,15 +296,16 @@ body {
   position: relative;
 }
 
-.scoreboard_stub_challengebutton {
+.scoreboard_entry_challengebutton {
   left: 280px;
   top: -158px;
   width: 52px;
   height: 96px;
   position: relative;
+  cursor: pointer;
 }
 
-.scoreboard_stub_image {
+.scoreboard_entry_image {
   left: 106px;
   top: -155px;
   width: 97px;

@@ -216,6 +216,27 @@ function welcomePlayer(uid) {
       bombsNumber.className   = 'player_bombs';
       bombsNumber.innerHTML   = gPlayerBombs;
       bombsDisplay.appendChild(bombsNumber);
+
+      var buyBombDisplay = document.createElement('div');
+      buyBombDisplay.className  = 'buy_bomb';
+      buyBombDisplay.style.top  = '100px';
+      buyBombDisplay.style.left = '360px';
+      buyBombDisplay.style.cursor = 'pointer';
+      welcomeMsgContainer.appendChild(buyBombDisplay);
+      
+      var buyBombIcon = document.createElement('img');
+      buyBombIcon.setAttribute('src', 'images/buybomb40.png');
+      buyBombDisplay.appendChild(buyBombIcon);
+
+      buyBombDisplay.onclick = function() {
+        if(gPlayerCoins >= 100) {
+          gPlayerCoins -= 100;
+          gPlayerBombs++;
+          updatePlayerUI();
+        } else {
+          alert('Not enough coins to buy a bomb!');
+        }
+      };
       
     } else {
           var welcomeMsg = document.createElement('div');
@@ -282,10 +303,55 @@ function showScores() {
   var scoreboardContainer = document.createElement('div');
   scoreboardContainer.id = 'scoreboard_container';
   stage.appendChild(scoreboardContainer);
-        
-  var scoreboardTournamentStub = document.createElement('div');
-  scoreboardTournamentStub.className = 'scoreboard_tournament_stub';
-  scoreboardContainer.appendChild(scoreboardTournamentStub);  
+
+  var scoreboardHeader = document.createElement('div');
+  scoreboardHeader.className = 'scoreboard_header';
+  scoreboardContainer.appendChild(scoreboardHeader);
+
+  var scoresEndpoint = '/' + appId + '/scores?fields=user.first_name,score';
+
+  FB.api(scoresEndpoint, function(response) {
+    for(var i = 0; i < response.data.length; i++) {
+
+      var scoreboardEntry = document.createElement('div');
+      scoreboardEntry.className = 'scoreboard_entry';
+
+      var scoreboardEntryRank = document.createElement('div');
+      scoreboardEntryRank.className = 'scoreboard_entry_rank';
+      scoreboardEntryRank.innerHTML = (i+1) + ".";
+      scoreboardEntry.appendChild(scoreboardEntryRank);
+
+      var scoreboardEntryName = document.createElement('div');
+      scoreboardEntryName.className = 'scoreboard_entry_name';
+      scoreboardEntryName.innerHTML = response.data[i].user.first_name;
+      scoreboardEntry.appendChild(scoreboardEntryName);
+
+      var scoreboardEntryScore = document.createElement('div');
+      scoreboardEntryScore.className = 'scoreboard_entry_score';
+      scoreboardEntryScore.innerHTML = "Score: " + response.data[i].score;
+      scoreboardEntry.appendChild(scoreboardEntryScore);
+
+      var scoreboardEntryImage = document.createElement('img');
+      scoreboardEntryImage.setAttribute('src', "https://graph.facebook.com/" + response.data[i].user.id + "/picture?width=128&height=128");
+      scoreboardEntryImage.className = 'scoreboard_entry_image';
+      scoreboardEntry.appendChild(scoreboardEntryImage);
+
+      var scoreboardEntryChallengeButton = document.createElement('img');
+      scoreboardEntryChallengeButton.setAttribute('src', "images/button_scoreboardchallenge.png");
+      scoreboardEntryChallengeButton.className = 'scoreboard_entry_challengebutton';
+      
+      scoreboardEntryChallengeButton.onclick = (function() {
+        var fbid = response.data[i].user.id;
+        var first_name = response.data[i].user.first_name;
+        return function() {
+          startGame(fbid, first_name);
+        } 
+      })();
+      scoreboardEntry.appendChild(scoreboardEntryChallengeButton);
+
+      scoreboardContainer.appendChild(scoreboardEntry);
+    }
+  });
 }
 
 function sendChallenge() {
