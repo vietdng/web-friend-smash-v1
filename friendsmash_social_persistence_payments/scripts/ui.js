@@ -132,7 +132,36 @@ function createMenu() {
       function() {
         $(this).stop().animate({"opacity": "1"}, "slow");
       }
-    ); 
+    );
+    
+    /* Store Button */
+    var storeButton = document.createElement('div');
+    storeButton.className = 'menu_item';
+    storeButton.id = 'store_button';
+    storeButton.style.top = "479px";
+    storeButton.style.left = "0px";
+    storeButton.style.zIndex = "10";
+    storeButton.setAttribute('onclick', 'javascript:purchaseCoin()');
+    storeButton.style.backgroundImage = "url('images/button_store.png')";
+    menuContainer.appendChild(storeButton);
+
+    var storeButtonHover = document.createElement('div');
+    storeButtonHover.className = 'menu_item';
+    storeButtonHover.id = 'store_button_hover';
+    storeButtonHover.style.top = "479px";
+    storeButtonHover.style.left = "0px";
+    storeButtonHover.style.backgroundImage = "url('images/button_store_hot.png')";
+    menuContainer.appendChild(storeButtonHover);
+
+    $("#store_button").hover (
+      function() {
+        $(this).stop().animate({"opacity": "0"}, "slow");
+      },
+      function() {
+        $(this).stop().animate({"opacity": "1"}, "slow");
+      }
+    );
+  
 
     FB.getLoginStatus(function(response) {
           if (response.status === 'connected') {
@@ -152,6 +181,16 @@ function createMenu() {
   } else {
     welcomePlayer(null);
   } 
+}
+
+function purchaseCoin() {
+  FB.ui({
+    method: 'pay',
+    action: 'purchaseitem',
+    product: 'http://www.friendsmash.com/opengraph/coin.html'
+  }, function(data) {
+    console.log(data);
+  });
 }
 
 function updatePlayerUI() {
