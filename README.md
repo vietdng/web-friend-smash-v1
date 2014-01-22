@@ -1,7 +1,10 @@
 # Friend Smash sample Facebook app
 
-Authors: Ali Parr (aliparr)
-		 Marco Alvarez
+## Authors
+
+* Ali Parr (aliparr)
+* Connor Treacy (connortreacy)
+* Marco Alvarez
 
 ## Installing
 
