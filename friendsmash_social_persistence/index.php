@@ -24,9 +24,9 @@
   require 'server/fb-php-sdk/facebook.php';
 
   // Production
-  $app_id = 'YOUR APP ID';
-  $app_secret = 'YOUR APP SECRET';
-  $app_namespace = 'YOUR APP NAMESPACE';
+  $app_id = 'YOUR_APP_ID';
+  $app_secret = 'YOUR_APP_SECRET';
+  $app_namespace = 'YOUR_APP_NAMESPACE';
 
   $app_url = 'http://apps.facebook.com/' . $app_namespace . '/';
   $scope = 'email,publish_actions';
@@ -68,7 +68,7 @@
       <link href="scripts/style.css" rel="stylesheet" type="text/css">
 
       <script src="scripts/jquery-1.8.3.js"></script>
-      <script src="scripts/jquery.jCounter-0.1.4.js"></script>
+      <script type="text/javascript" src="//www.parsecdn.com/js/parse-1.2.12.min.js"></script>
 
   </head>
 
@@ -87,6 +87,7 @@
       </div>
 
       <script src="scripts/core.js"></script>
+      <script src="scripts/parse.js"></script>
       <script src="scripts/game.js"></script>
       <script src="scripts/ui.js"></script>
       
@@ -100,10 +101,20 @@
             cookie: true,
           });
 
+          Parse.initialize("YOUR_PARSE_APPLICATION_ID", "YOUR_PARSE_JAVASCRIPT_KEY");
+
+          uid = null;
+
           FB.getLoginStatus(function(response) {
-            uid = response.authResponse.userID ? response.authResponse.userID : null;
+            if( response.authResponse ) {
+              uid = response.authResponse.userID;
+              Parse.FacebookUtils.logIn(
+                getLoginParamsFromAuthResponse(response.authResponse)
+              ).then(loginSuccessCallback, loginErrorCallback);
+            } else {
+              FB.login(init, {scope:'publish_actions'});
+            }
           });
       </script>
-
   </body>
 </html>

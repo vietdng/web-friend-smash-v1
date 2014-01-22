@@ -24,9 +24,9 @@
   require 'server/fb-php-sdk/facebook.php';
 
   // Production
-  $app_id = 'YOUR APP ID';
-  $app_secret = 'YOUR APP SECRET';
-  $app_namespace = 'YOUR APP NAMESPACE';
+  $app_id = 'YOUR_APP_ID';
+  $app_secret = 'YOUR_APP_SECRET';
+  $app_namespace = 'YOUR_APP_NAMESPACE';
 
   $app_url = 'http://apps.facebook.com/' . $app_namespace . '/';
   $scope = 'email,publish_actions';
