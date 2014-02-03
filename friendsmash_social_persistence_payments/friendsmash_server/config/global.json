@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "FriendSmash": {
+            "applicationId": "N1lOGVWXpikgvPFJxkfkd4kRTvaPNuOWe83zRoRx", 
+            "masterKey": "0zaDlFNK1GpHq5s3KqZ51hG9UhFVAXmxb7nZm34q"
+        }, 
+        "_default": {
+            "link": "FriendSmash"
+        }
+    }
+}
