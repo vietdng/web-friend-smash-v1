@@ -1,11 +1,14 @@
 {
     "applications": {
-        "FriendSmash": {
-            "applicationId": "N1lOGVWXpikgvPFJxkfkd4kRTvaPNuOWe83zRoRx", 
-            "masterKey": "0zaDlFNK1GpHq5s3KqZ51hG9UhFVAXmxb7nZm34q"
+        "FriendSmashParseSimple": {
+            "applicationId": "ILQ3MtsLG2uv7ZHFMm7ZHoE8BIAKwA1SySejgYDj", 
+            "masterKey": "3zX5D8GYtHCSVSdZcGXDcRRuP3RwT76rNe9fK7tY"
         }, 
         "_default": {
-            "link": "FriendSmash"
+            "link": "FriendSmashParseSimple"
         }
+    }, 
+    "global": {
+        "parseVersion": "1.2.8"
     }
 }
