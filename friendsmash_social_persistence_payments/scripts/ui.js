@@ -141,7 +141,7 @@ function createMenu() {
     storeButton.style.top = "479px";
     storeButton.style.left = "0px";
     storeButton.style.zIndex = "10";
-    storeButton.setAttribute('onclick', 'javascript:purchaseCoin()');
+    storeButton.setAttribute('onclick', 'javascript:showStore()');
     storeButton.style.backgroundImage = "url('images/button_store.png')";
     menuContainer.appendChild(storeButton);
 
@@ -183,11 +183,38 @@ function createMenu() {
   } 
 }
 
+function showStore() {
+   var background = document.createElement('div');
+   background.id         = 'modal_background';
+   stage.appendChild(background);
+
+   var storeContainer = document.createElement('div');
+   storeContainer.id      = 'store';
+   stage.appendChild(storeContainer);
+
+   var closeStoreButton = document.createElement('div');
+   closeStoreButton.id    = 'close_button';
+   closeStoreButton.setAttribute('onclick', 'javascript:closeStore()');
+   stage.appendChild(closeStoreButton);
+
+   buildStore();
+
+   $(background).animate({'opacity': 1}, 'fast');
+   $(storeContainer).animate({'opacity': 1}, 'normal');
+   $(closeStoreButton).animate({'opacity': 1}, 'normal');
+}
+
+function closeStore() {
+  $('#store').animate({'opacity': 0}, 'fast', function(){$('#store').remove()});
+  $('#close_button').animate({'opacity': 0}, 'fast', function(){$('#close_button').remove()});
+  $('#modal_background').animate({'opacity': 0, }, 'normal', function(){$('#modal_background').remove()});
+}
+
 function purchaseCoin() {
   FB.ui({
     method: 'pay',
     action: 'purchaseitem',
-    product: 'http://www.friendsmash.com/opengraph/coin.html'
+    product: 'http://apps.facebook.com/' + appNamespace + '/coin.html'
   }, function(data) {
     console.log(data);
   });
@@ -415,7 +442,7 @@ function sendChallenge() {
 function sendOG() {
   console.log("Sending custom OG story...");
 
-  FB.api('/me/friendsmashsample:smash?profile=' + gFriendID, 'post', {}, function(response) {
+  FB.api('/me/'+appNamespace+':smash?profile=' + gFriendID, 'post', {}, function(response) {
     console.log(response);
   });
 }
@@ -426,7 +453,7 @@ function sendBrag() {
       caption: 'I just smashed ' + gScore + ' friends! Can you beat it?',
       picture: 'http://www.friendsmash.com/images/logo_large.jpg',
       name: 'Checkout my Friend Smash greatness!',
-      link: 'http://apps.facebook.com/friendsmashsample/?challenge_brag=' + gPlayerFBID
+      link: 'http://apps.facebook.com/'+appNamespace+'/?challenge_brag=' + gPlayerFBID
     }, fbCallback);
   }
 }
@@ -443,11 +470,11 @@ function sendScore() {
 function sendAchievement(kAchievement) {
 
   var achievementURLs = Array();
-  achievementURLs[0] = "http://www.friendsmash.com/achievement_50.html";
-  achievementURLs[1] = "http://www.friendsmash.com/achievement_100.html";
-  achievementURLs[2] = "http://www.friendsmash.com/achievement_150.html";
-  achievementURLs[3] = "http://www.friendsmash.com/achievement_200.html";
-  achievementURLs[4] = "http://www.friendsmash.com/achievement_x3.html";
+  achievementURLs[0] = 'http://apps.facebook.com/'+appNamespace+'achievement_50.html';
+  achievementURLs[1] = 'http://apps.facebook.com/'+appNamespace+'achievement_100.html';
+  achievementURLs[2] = 'http://apps.facebook.com/'+appNamespace+'achievement_150.html';
+  achievementURLs[3] = 'http://apps.facebook.com/'+appNamespace+'achievement_200.html';
+  achievementURLs[4] = 'http://apps.facebook.com/'+appNamespace+'achievement_x3.html';
 
   FB.api('/me/scores/', 'post', { achievement: achievementURLs[kAchievement] }, function(response) {
     console.log("Achievement posted");

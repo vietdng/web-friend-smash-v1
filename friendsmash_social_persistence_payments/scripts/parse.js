@@ -49,7 +49,7 @@ function parseErrorCallback(error) {
 
 function setupNewParseUser() {
   Parse.User.current().save({
-    bombs: gInitialBombs,
-    coins: gInitialCoins
+    bombs: 5,
+    coins: 100
   }).then( createMenu, parseErrorCallback );
 }

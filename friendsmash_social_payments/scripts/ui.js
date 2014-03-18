@@ -405,7 +405,7 @@ function sendChallenge() {
 function sendOG() {
   console.log("Sending custom OG story...");
 
-  FB.api('/me/friendsmashsample:smash?profile=' + gFriendID, 'post', {}, function(response) {
+  FB.api('/me/'+appNamespace+':smash?profile=' + gFriendID, 'post', {}, function(response) {
     console.log(response);
   });
 }
@@ -416,7 +416,7 @@ function sendBrag() {
       caption: 'I just smashed ' + gScore + ' friends! Can you beat it?',
       picture: 'http://www.friendsmash.com/images/logo_large.jpg',
       name: 'Checkout my Friend Smash greatness!',
-      link: 'http://apps.facebook.com/friendsmashsample/?challenge_brag=' + gPlayerFBID
+      link: 'http://apps.facebook.com/'+appNamespace+'/?challenge_brag=' + gPlayerFBID
     }, fbCallback);
   }
 }
@@ -433,11 +433,11 @@ function sendScore() {
 function sendAchievement(kAchievement) {
 
   var achievementURLs = Array();
-  achievementURLs[0] = "http://www.friendsmash.com/achievement_50.html";
-  achievementURLs[1] = "http://www.friendsmash.com/achievement_100.html";
-  achievementURLs[2] = "http://www.friendsmash.com/achievement_150.html";
-  achievementURLs[3] = "http://www.friendsmash.com/achievement_200.html";
-  achievementURLs[4] = "http://www.friendsmash.com/achievement_x3.html";
+  achievementURLs[0] = 'http://apps.facebook.com/'+appNamespace+'achievement_50.html';
+  achievementURLs[1] = 'http://apps.facebook.com/'+appNamespace+'achievement_100.html';
+  achievementURLs[2] = 'http://apps.facebook.com/'+appNamespace+'achievement_150.html';
+  achievementURLs[3] = 'http://apps.facebook.com/'+appNamespace+'achievement_200.html';
+  achievementURLs[4] = 'http://apps.facebook.com/'+appNamespace+'achievement_x3.html';
 
   FB.api('/me/scores/', 'post', { achievement: achievementURLs[kAchievement] }, function(response) {
     console.log("Achievement posted");

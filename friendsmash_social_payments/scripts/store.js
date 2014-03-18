@@ -3,73 +3,326 @@ var gUserPricePoints  = null;
 
 var gSupportedCurrencies = {};
 
-// Replace this with your own object id
-var gCoinsObjectId = 470134983067927;
+var gCoinsObjectURL = 'http://apps.facebook.com/' + appNamespace + '/coin.html';
 
-var gUserCountryPricePoints       = {};
-gUserCountryPricePoints.count     = 0;
-gUserCountryPricePoints.default   = "US";
-gUserCountryPricePoints.countries = [];
+var gUserCountryPricePoints = {
+  count: 0,
+  default: "US",
+  countries: []  
+};
 
-gSupportedCurrencies["USD"] = {symbol: "&#36;",    pre: true};
-gSupportedCurrencies["SGD"] = {symbol: "S&#36;",   pre: true};
-gSupportedCurrencies["RON"] = {symbol: "LEU",      pre: false};
-gSupportedCurrencies["EUR"] = {symbol: "&#8364;",  pre: true};
-gSupportedCurrencies["TRY"] = {symbol: "&#8378;",  pre: true};
-gSupportedCurrencies["SEK"] = {symbol: "kr",       pre: false};
-gSupportedCurrencies["ZAR"] = {symbol: "R",        pre: true};
-gSupportedCurrencies["BHD"] = {symbol: "BD",       pre: true};
-gSupportedCurrencies["HKD"] = {symbol: "HK&#36;",  pre: true};
-gSupportedCurrencies["CHF"] = {symbol: "Fr.",      pre: false};
-gSupportedCurrencies["NIO"] = {symbol: "C&#36;",   pre: true};
-gSupportedCurrencies["JPY"] = {symbol: "&#165;",   pre: true};
-gSupportedCurrencies["ISK"] = {symbol: "kr;",      pre: false};
-gSupportedCurrencies["TWD"] = {symbol: "NT&#36;",  pre: true};
-gSupportedCurrencies["NZD"] = {symbol: "NZ&#36;",  pre: true};
-gSupportedCurrencies["CZK"] = {symbol: "K&#269;",  pre: true};
-gSupportedCurrencies["AUD"] = {symbol: "A&#36;",   pre: true};
-gSupportedCurrencies["THB"] = {symbol: "&#3647;",  pre: true};
-gSupportedCurrencies["BOB"] = {symbol: "Bs",       pre: true};
-gSupportedCurrencies["BRL"] = {symbol: "B&#36;",   pre: true};
-gSupportedCurrencies["MXN"] = {symbol: "Mex&#36;", pre: true};
-gSupportedCurrencies["ILS"] = {symbol: "&#8362;",  pre: true};
-gSupportedCurrencies["JOD"] = {symbol: "JD",       pre: false};
-gSupportedCurrencies["HNL"] = {symbol: "L",        pre: true};
-gSupportedCurrencies["MOP"] = {symbol: "MOP&#36;", pre: true};
-gSupportedCurrencies["COP"] = {symbol: "&#36;",    pre: true};
-gSupportedCurrencies["UYU"] = {symbol: "&#36;U",   pre: true};
-gSupportedCurrencies["CRC"] = {symbol: "&#8353;",  pre: true};
-gSupportedCurrencies["DKK"] = {symbol: "kr",       pre: false};
-gSupportedCurrencies["QAR"] = {symbol: "QR",       pre: false};
-gSupportedCurrencies["PYG"] = {symbol: "&#8370;",  pre: true};
-gSupportedCurrencies["EGP"] = {symbol: "E&#163;",  pre: true};
-gSupportedCurrencies["CAD"] = {symbol: "C&#36;",   pre: true};
-gSupportedCurrencies["LVL"] = {symbol: "Ls",       pre: true};
-gSupportedCurrencies["INR"] = {symbol: "&#8377;",  pre: true};
-gSupportedCurrencies["LTL"] = {symbol: "Lt;",      pre: false};
-gSupportedCurrencies["KRW"] = {symbol: "&#8361;",  pre: true};
-gSupportedCurrencies["GTQ"] = {symbol: "Q",        pre: true};
-gSupportedCurrencies["AED"] = {symbol: "AED",      pre: false};
-gSupportedCurrencies["VEF"] = {symbol: "Bs.F.",    pre: true};
-gSupportedCurrencies["SAR"] = {symbol: "SR",       pre: false};
-gSupportedCurrencies["NOK"] = {symbol: "kr",       pre: false};
-gSupportedCurrencies["UAH"] = {symbol: "&#8372;",  pre: true};
-gSupportedCurrencies["DOP"] = {symbol: "RD&#36;",  pre: true};
-gSupportedCurrencies["CNY"] = {symbol: "&#165;",   pre: true};
-gSupportedCurrencies["BGN"] = {symbol: "lev",      pre: false};
-gSupportedCurrencies["ARS"] = {symbol: "&#36;",    pre: true};
-gSupportedCurrencies["PLN"] = {symbol: "z&#322;",  pre: false};
-gSupportedCurrencies["GBP"] = {symbol: "&#163;",   pre: true};
-gSupportedCurrencies["PEN"] = {symbol: "S/.",      pre: false};
-gSupportedCurrencies["PHP"] = {symbol: "PhP",      pre: false};
-gSupportedCurrencies["VND"] = {symbol: "&#8363;",  pre: false};
-gSupportedCurrencies["RUB"] = {symbol: "py&#1073;",pre: false};
-gSupportedCurrencies["RSD"] = {symbol: "RSD",      pre: false};
-gSupportedCurrencies["HUF"] = {symbol: "Ft",       pre: false};
-gSupportedCurrencies["MYR"] = {symbol: "RM",       pre: true};
-gSupportedCurrencies["CLP"] = {symbol: "&#36;",    pre: true};
-gSupportedCurrencies["HRK"] = {symbol: "kn",       pre: false};
-gSupportedCurrencies["IDR"] = {symbol: "Rp",       pre: true};
+var gSupportedCurrencies = {
+  'USD':  { symbol: '&#36;',    pre:true },
+  'SGD':  { symbol: 'S&#36;',   pre:true },
+  'RON':  { symbol: 'LEU',      pre:false },
+  'EUR':  { symbol: '&#8364;',  pre:true },
+  'TRY':  { symbol: '&#8378;',  pre:true },
+  'SEK':  { symbol: 'kr',       pre:false },
+  'ZAR':  { symbol: 'R',        pre:true },
+  'BHD':  { symbol: 'BD',       pre:true },
+  'HKD':  { symbol: 'HK&#36;',  pre:true },
+  'CHF':  { symbol: 'Fr.',      pre:false },
+  'NIO':  { symbol: 'C&#36;',   pre:true },
+  'JPY':  { symbol: '&#165;',   pre:true },
+  'ISK':  { symbol: 'kr;',      pre:false },
+  'TWD':  { symbol: 'NT&#36;',  pre:true },
+  'NZD':  { symbol: 'NZ&#36;',  pre:true },
+  'CZK':  { symbol: 'K&#269;',  pre:true },
+  'AUD':  { symbol: 'A&#36;',   pre:true },
+  'THB':  { symbol: '&#3647;',  pre:true },
+  'BOB':  { symbol: 'Bs',       pre:true },
+  'BRL':  { symbol: 'B&#36;',   pre:true },
+  'MXN':  { symbol: 'Mex&#36;', pre:true },
+  'ILS':  { symbol: '&#8362;',  pre:true },
+  'JOD':  { symbol: 'JD',       pre:false },
+  'HNL':  { symbol: 'L',        pre:true },
+  'MOP':  { symbol: 'MOP&#36;', pre:true },
+  'COP':  { symbol: '&#36;',    pre:true },
+  'UYU':  { symbol: '&#36;U',   pre:true },
+  'CRC':  { symbol: '&#8353;',  pre:true },
+  'DKK':  { symbol: 'kr',       pre:false },
+  'QAR':  { symbol: 'QR',       pre:false },
+  'PYG':  { symbol: '&#8370;',  pre:true },
+  'EGP':  { symbol: 'E&#163;',  pre:true },
+  'CAD':  { symbol: 'C&#36;',   pre:true },
+  'LVL':  { symbol: 'Ls',       pre:true },
+  'INR':  { symbol: '&#8377;',  pre:true },
+  'LTL':  { symbol: 'Lt;',      pre:false },
+  'KRW':  { symbol: '&#8361;',  pre:true },
+  'GTQ':  { symbol: 'Q',        pre:true },
+  'AED':  { symbol: 'AED',      pre:false },
+  'VEF':  { symbol: 'Bs.F.',    pre:true },
+  'SAR':  { symbol: 'SR',       pre:false },
+  'NOK':  { symbol: 'kr',       pre:false },
+  'UAH':  { symbol: '&#8372;',  pre:true },
+  'DOP':  { symbol: 'RD&#36;',  pre:true },
+  'CNY':  { symbol: '&#165;',   pre:true },
+  'BGN':  { symbol: 'lev',      pre:false },
+  'ARS':  { symbol: '&#36;',    pre:true },
+  'PLN':  { symbol: 'z&#322;',  pre:false },
+  'GBP':  { symbol: '&#163;',   pre:true },
+  'PEN':  { symbol: 'S/.',      pre:false },
+  'PHP':  { symbol: 'PhP',      pre:false },
+  'VND':  { symbol: '&#8363;',  pre:false },
+  'RUB':  { symbol: 'py&#1073;', pre:false },
+  'RSD':  { symbol: 'RSD',      pre:false },
+  'HUF':  { symbol: 'Ft',       pre:false },
+  'MYR':  { symbol: 'RM',       pre:true },
+  'CLP':  { symbol: '&#36;',    pre:true },
+  'HRK':  { symbol: 'kn',       pre:false },
+  'IDR':  { symbol: 'Rp',       pre:true },
+}
+
+var gCountryCodeNames = {
+  "AF": "Afghanistan",
+  "AX": "Åland Islands",
+  "AL": "Albania",
+  "DZ": "Algeria",
+  "AS": "American Samoa",
+  "AD": "Andorra",
+  "AO": "Angola",
+  "AI": "Anguilla",
+  "AQ": "Antarctica",
+  "AG": "Antigua And Barbuda",
+  "AR": "Argentina",
+  "AM": "Armenia",
+  "AW": "Aruba",
+  "AU": "Australia",
+  "AT": "Austria",
+  "AZ": "Azerbaijan",
+  "BS": "Bahamas",
+  "BH": "Bahrain",
+  "BD": "Bangladesh",
+  "BB": "Barbados",
+  "BY": "Belarus",
+  "BE": "Belgium",
+  "BZ": "Belize",
+  "BJ": "Benin",
+  "BM": "Bermuda",
+  "BT": "Bhutan",
+  "BO": "Bolivia",
+  "BQ": "Bonaire",
+  "BA": "Bosnia And Herzegovina",
+  "BW": "Botswana",
+  "BV": "Bouvet Island",
+  "BR": "Brazil",
+  "IO": "British Indian Ocean Territory",
+  "BN": "Brunei Darussalam",
+  "BG": "Bulgaria",
+  "BF": "Burkina Faso",
+  "BI": "Burundi",
+  "KH": "Cambodia",
+  "CM": "Cameroon",
+  "CA": "Canada",
+  "CV": "Cape Verde",
+  "KY": "Cayman Islands",
+  "CF": "Central African Republic",
+  "TD": "Chad",
+  "CL": "Chile",
+  "CN": "China",
+  "CX": "Christmas Island",
+  "CC": "Cocos Islands",
+  "CO": "Colombia",
+  "KM": "Comoros",
+  "CG": "Congo",
+  "CD": "Congo, The Democratic Republic Of The",
+  "CK": "Cook Islands",
+  "CR": "Costa Rica",
+  "CI": "Côte D'ivoire",
+  "HR": "Croatia",
+  "CU": "Curaçao",
+  "CY": "Cyprus",
+  "CZ": "Czech Republic",
+  "DK": "Denmark",
+  "DJ": "Djibouti",
+  "DM": "Dominica",
+  "DO": "Dominican Republic",
+  "EC": "Ecuador",
+  "EG": "Egypt",
+  "SV": "El Salvador",
+  "GQ": "Equatorial Guinea",
+  "ER": "Eritrea",
+  "EE": "Estonia",
+  "ET": "Ethiopia",
+  "FK": "Falkland Islands (malvinas)",
+  "FO": "Faroe Islands",
+  "FJ": "Fiji",
+  "FI": "Finland",
+  "FR": "France",
+  "GF": "French Guiana",
+  "PF": "French Polynesia",
+  "TF": "French Southern Territories",
+  "GA": "Gabon",
+  "GM": "Gambia",
+  "GE": "Georgia",
+  "DE": "Germany",
+  "GH": "Ghana",
+  "GI": "Gibraltar",
+  "GR": "Greece",
+  "GL": "Greenland",
+  "GD": "Grenada",
+  "GP": "Guadeloupe",
+  "GU": "Guam",
+  "GT": "Guatemala",
+  "GG": "Guernsey",
+  "GN": "Guinea",
+  "GW": "Guinea-bissau",
+  "GY": "Guyana",
+  "HT": "Haiti",
+  "HM": "Heard Island And Mcdonald Islands",
+  "VA": "Vatican",
+  "HN": "Honduras",
+  "HK": "Hong Kong",
+  "HU": "Hungary",
+  "IS": "Iceland",
+  "IN": "India",
+  "ID": "Indonesia",
+  "IR": "Iran",
+  "IQ": "Iraq",
+  "IE": "Ireland",
+  "IM": "Isle Of Man",
+  "IL": "Israel",
+  "IT": "Italy",
+  "JM": "Jamaica",
+  "JP": "Japan",
+  "JE": "Jersey",
+  "JO": "Jordan",
+  "KZ": "Kazakhstan",
+  "KE": "Kenya",
+  "KI": "Kiribati",
+  "KP": "Korea, Democratic People's Republic Of",
+  "KR": "Korea, Republic Of",
+  "KW": "Kuwait",
+  "KG": "Kyrgyzstan",
+  "LA": "Lao People's Democratic Republic",
+  "LV": "Latvia",
+  "LB": "Lebanon",
+  "LS": "Lesotho",
+  "LR": "Liberia",
+  "LY": "Libya",
+  "LI": "Liechtenstein",
+  "LT": "Lithuania",
+  "LU": "Luxembourg",
+  "MO": "Macao",
+  "MK": "Macedonia",
+  "MG": "Madagascar",
+  "MW": "Malawi",
+  "MY": "Malaysia",
+  "MV": "Maldives",
+  "ML": "Mali",
+  "MT": "Malta",
+  "MH": "Marshall Islands",
+  "MQ": "Martinique",
+  "MR": "Mauritania",
+  "MU": "Mauritius",
+  "YT": "Mayotte",
+  "MX": "Mexico",
+  "FM": "Micronesia",
+  "MD": "Moldova",
+  "MC": "Monaco",
+  "MN": "Mongolia",
+  "ME": "Montenegro",
+  "MS": "Montserrat",
+  "MA": "Morocco",
+  "MZ": "Mozambique",
+  "MM": "Myanmar",
+  "NA": "Namibia",
+  "NR": "Nauru",
+  "NP": "Nepal",
+  "NL": "Netherlands",
+  "NC": "New Caledonia",
+  "NZ": "New Zealand",
+  "NI": "Nicaragua",
+  "NE": "Niger",
+  "NG": "Nigeria",
+  "NU": "Niue",
+  "NF": "Norfolk Island",
+  "MP": "Northern Mariana Islands",
+  "NO": "Norway",
+  "OM": "Oman",
+  "PK": "Pakistan",
+  "PW": "Palau",
+  "PS": "Palestine: State Of",
+  "PA": "Panama",
+  "PG": "Papua New Guinea",
+  "PY": "Paraguay",
+  "PE": "Peru",
+  "PH": "Philippines",
+  "PN": "Pitcairn",
+  "PL": "Poland",
+  "PT": "Portugal",
+  "PR": "Puerto Rico",
+  "QA": "Qatar",
+  "RE": "Réunion",
+  "RO": "Romania",
+  "RU": "Russian Federation",
+  "RW": "Rwanda",
+  "BL": "Saint Barthélemy",
+  "SH": "Saint Helena, Ascension And Tristan Da Cunha",
+  "KN": "Saint Kitts And Nevis",
+  "LC": "Saint Lucia",
+  "MF": "Saint Martin",
+  "PM": "Saint Pierre And Miquelon",
+  "VC": "Saint Vincent And The Grenadines",
+  "WS": "Samoa",
+  "SM": "San Marino",
+  "ST": "Sao Tome And Principe",
+  "SA": "Saudi Arabia",
+  "SN": "Senegal",
+  "RS": "Serbia",
+  "SC": "Seychelles",
+  "SL": "Sierra Leone",
+  "SG": "Singapore",
+  "SX": "Sint Maarten",
+  "SK": "Slovakia",
+  "SI": "Slovenia",
+  "SB": "Solomon Islands",
+  "SO": "Somalia",
+  "ZA": "South Africa",
+  "GS": "South Georgia",
+  "SS": "South Sudan",
+  "ES": "Spain",
+  "LK": "Sri Lanka",
+  "SD": "Sudan",
+  "SR": "Suriname",
+  "SJ": "Svalbard And Jan Mayen",
+  "SZ": "Swaziland",
+  "SE": "Sweden",
+  "CH": "Switzerland",
+  "SY": "Syrian Arab Republic",
+  "TW": "Taiwan",
+  "TJ": "Tajikistan",
+  "TZ": "Tanzania",
+  "TH": "Thailand",
+  "TL": "Timor-leste",
+  "TG": "Togo",
+  "TK": "Tokelau",
+  "TO": "Tonga",
+  "TT": "Trinidad And Tobago",
+  "TN": "Tunisia",
+  "TR": "Turkey",
+  "TM": "Turkmenistan",
+  "TC": "Turks And Caicos Islands",
+  "TV": "Tuvalu",
+  "UG": "Uganda",
+  "UA": "Ukraine",
+  "AE": "United Arab Emirates",
+  "GB": "United Kingdom",
+  "US": "United States",
+  "UM": "United States Minor Outlying Islands",
+  "UY": "Uruguay",
+  "UZ": "Uzbekistan",
+  "VU": "Vanuatu",
+  "VE": "Venezuela",
+  "VN": "Viet Nam",
+  "VG": "Virgin Islands, British",
+  "VI": "Virgin Islands, U.s.",
+  "WF": "Wallis And Futuna",
+  "EH": "Western Sahara",
+  "YE": "Yemen",
+  "ZM": "Zambia",
+  "ZW": "Zimbabwe"
+};
 
 function buildStore() {
   
@@ -311,7 +564,7 @@ function showMobile() {
       if (typeof(gUserCountryPricePoints.countries[country_id]) == "function") continue;
       var country_option = document.createElement("option");
       country_option.value = country_id;
-      country_option.innerHTML = capitalize(COUNTRY_CODES[country_id]);
+      country_option.innerHTML = gCountryCodeNames[country_id];
       country_selector.appendChild(country_option);
     }
     
@@ -387,7 +640,10 @@ function getUserCurrency(callback) {
 }
 
 function getCoinPrice() {
-  FB.api(""+gCoinsObjectId+"", function(response){
+  FB.api('', 'post', {
+      id: gCoinsObjectURL, 
+      scrape: true
+    }, function(response){
     if (response && !response.error) {
       if (response.data && response.data.price) {
         for (var x in response.data.price) {
@@ -451,7 +707,7 @@ function buyCoins(quantity) {
   FB.ui({
       method: 'pay',
       action: 'purchaseitem',
-      product: g_api_url+'/opengraph/coin.html',
+      product: gCoinsObjectURL,
       request_id: requestID,
       quantity: quantity
     },
@@ -487,7 +743,7 @@ function buyCoinsMobile(pricepointNumber) {
   FB.ui({
       method: 'pay',
       action: 'purchaseitem',
-      product: g_api_url+'/opengraph/coin.html',
+      product: gCoinsObjectURL,
       request_id: requestID,
       pricepoint_id: current_pricepoint.pricepoint_id,
       quantity: quantity,

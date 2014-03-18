@@ -32,26 +32,22 @@
   $scope = 'email,publish_actions';
 
   // Init the Facebook SDK
-   $facebook = new Facebook(array(
-     'appId'  => $app_id,
-     'secret' => $app_secret,
-   ));
+  $facebook = new Facebook(array(
+    'appId'  => $app_id,
+    'secret' => $app_secret,
+  ));
 
-   // Get the current user
-   $user = $facebook->getUser();
+  // Get the current user
+  $user = $facebook->getUser();
 
-   // If the user has not installed the app, redirect them to the Login Dialog
-
-   if (!$user) {
-     $loginUrl = $facebook->getLoginUrl(array(
-       'scope' => $scope,
-       'redirect_uri' => $app_url,
-     ));
-
-     print('<script> top.location.href=\'' . $loginUrl . '\'</script>');
-   }
-
-
+  // If the user has not installed the app, redirect them to the Login Dialog
+  if (!$user) {
+    $loginUrl = $facebook->getLoginUrl(array(
+      'scope' => $scope,
+      'redirect_uri' => $app_url,
+    ));
+    print('<script> top.location.href=\'' . $loginUrl . '\'</script>');
+  }
 ?>
 
 <!DOCTYPE html>
@@ -59,50 +55,52 @@
   <head>
     <title>Friend Smash!</title>
 
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-      <meta property="og:image" content="http://www.friendsmash.com/images/logo_large.jpg"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta property="og:image" content="http://www.friendsmash.com/images/logo_large.jpg"/>
 
-      <link href="scripts/style.css" rel="stylesheet" type="text/css">
+    <link href="scripts/style.css" rel="stylesheet" type="text/css">
 
-      <script src="scripts/jquery-1.8.3.js"></script>
-
+    <script src="scripts/jquery-1.8.3.js"></script>
+    <!--[if IE]><script src="scripts/excanvas.js"></script><![endif]-->
   </head>
 
   <body>
-      <div id="fb-root"></div>
-      <script src="//connect.facebook.net/en_US/all.js"></script>
+    <div id="fb-root"></div>
+    <script src="//connect.facebook.net/en_US/all.js"></script>
 
-      <div id="topbar">
-        <img src="images/logo.jpg"/>
+    <div id="topbar">
+      <img src="images/logo.jpg"/>
+    </div>
+
+    <div id="stage">
+      <div id="gameboard">
+          <canvas id="myCanvas"></canvas>
       </div>
+    </div>
 
-      <div id="stage">
-        <div id="gameboard">
-            <canvas id="myCanvas"></canvas>
-        </div>
-      </div>
+    <script>
+      var appId = '<?php echo $app_id ?>';
+      var appNamespace = '<?php echo $app_namespace ?>';
+    </script>
 
-      <script src="scripts/core.js"></script>
-      <script src="scripts/game.js"></script>
-      <script src="scripts/ui.js"></script>
-      
-      <script>
-          var appId = '<?php echo $facebook->getAppID() ?>';
+    <script src="scripts/core.js"></script>
+    <script src="scripts/game.js"></script>
+    <script src="scripts/ui.js"></script>
+    
+    <script>
+      // Initialize the JS SDK
+      FB.init({
+        appId: appId,
+        frictionlessRequests: true,
+        cookie: true,
+      });
 
-          // Initialize the JS SDK
-          FB.init({
-            appId: appId,
-            frictionlessRequests: true,
-            cookie: true,
-          });
-
-          FB.getLoginStatus(function(response) {
-            uid = response.authResponse.userID ? response.authResponse.userID : null;
-          });
-      </script>
-
+      FB.getLoginStatus(function(response) {
+        uid = response.authResponse.userID ? response.authResponse.userID : null;
+      });
+    </script>
   </body>
 </html>
