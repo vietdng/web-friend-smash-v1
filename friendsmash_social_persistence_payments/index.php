@@ -65,6 +65,8 @@
 
     <script src="scripts/jquery-1.8.3.js"></script>
     <!--[if IE]><script src="scripts/excanvas.js"></script><![endif]-->
+    
+    <script type="text/javascript" src="//www.parsecdn.com/js/parse-1.2.12.min.js"></script>
   </head>
 
   <body>
@@ -77,7 +79,7 @@
 
     <div id="stage">
       <div id="gameboard">
-          <canvas id="myCanvas"></canvas>
+        <canvas id="myCanvas"></canvas>
       </div>
     </div>
 
@@ -86,10 +88,13 @@
       var appNamespace = '<?php echo $app_namespace ?>';
     </script>
 
+    <script src="scripts/accounting.js"></script>
     <script src="scripts/core.js"></script>
+    <script src="scripts/parse.js"></script>
+    <script src="scripts/store.js"></script>
     <script src="scripts/game.js"></script>
     <script src="scripts/ui.js"></script>
-    
+
     <script>
       // Initialize the JS SDK
       FB.init({
@@ -98,8 +103,19 @@
         cookie: true,
       });
 
+      Parse.initialize("YOUR_PARSE_APPLICATION_ID", "YOUR_PARSE_JAVASCRIPT_KEY");
+
+      uid = null;
+
       FB.getLoginStatus(function(response) {
-        uid = response.authResponse.userID ? response.authResponse.userID : null;
+        if( response.authResponse ) {
+          uid = response.authResponse.userID;
+          Parse.FacebookUtils.logIn(
+            getLoginParamsFromAuthResponse(response.authResponse)
+          ).then(loginSuccessCallback, loginErrorCallback);
+        } else {
+          FB.login(init, {scope:'publish_actions'});
+        }
       });
     </script>
   </body>

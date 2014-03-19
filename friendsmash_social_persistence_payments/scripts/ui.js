@@ -183,6 +183,43 @@ function createMenu() {
   } 
 }
 
+function showStore() {
+   var background = document.createElement('div');
+   background.id         = 'modal_background';
+   stage.appendChild(background);
+
+   var storeContainer = document.createElement('div');
+   storeContainer.id      = 'store';
+   stage.appendChild(storeContainer);
+
+   var closeStoreButton = document.createElement('div');
+   closeStoreButton.id    = 'close_button';
+   closeStoreButton.setAttribute('onclick', 'javascript:closeStore()');
+   stage.appendChild(closeStoreButton);
+
+   buildStore();
+
+   $(background).animate({'opacity': 1}, 'fast');
+   $(storeContainer).animate({'opacity': 1}, 'normal');
+   $(closeStoreButton).animate({'opacity': 1}, 'normal');
+}
+
+function closeStore() {
+  $('#store').animate({'opacity': 0}, 'fast', function(){$('#store').remove()});
+  $('#close_button').animate({'opacity': 0}, 'fast', function(){$('#close_button').remove()});
+  $('#modal_background').animate({'opacity': 0, }, 'normal', function(){$('#modal_background').remove()});
+}
+
+function purchaseCoin() {
+  FB.ui({
+    method: 'pay',
+    action: 'purchaseitem',
+    product: 'http://apps.facebook.com/' + appNamespace + '/coin.html'
+  }, function(data) {
+    console.log(data);
+  });
+}
+
 function updatePlayerUI() {
   $('.player_bombs').html(gPlayerBombs);
   $('.player_coins').html(gPlayerCoins);
@@ -210,9 +247,9 @@ function welcomePlayer(uid) {
           profileImage.setAttribute('width', '148px');
           welcomeMsgContainer.appendChild(profileImage);
       });
-
-      gPlayerBombs = 5;
-      gPlayerCoins = 100;
+      
+      gPlayerBombs = Parse.User.current().get('bombs');
+      gPlayerCoins = Parse.User.current().get('coins');
           
       updatePlayerUI();
 
@@ -256,12 +293,12 @@ function welcomePlayer(uid) {
       var buyBombIcon = document.createElement('img');
       buyBombIcon.setAttribute('src', 'images/buybomb40.png');
       buyBombDisplay.appendChild(buyBombIcon);
-
+      
       buyBombDisplay.onclick = function() {
         if(gPlayerCoins >= 100) {
           gPlayerCoins -= 100;
           gPlayerBombs++;
-          updatePlayerUI();
+          updatePlayer();
         } else {
           alert('Not enough coins to buy a bomb!');
         }
@@ -510,33 +547,6 @@ function startGame(fbid, name) {
 
 function fbCallback(response) {
   console.log(response);
-}
-
-function showStore() {
-   var background = document.createElement('div');
-   background.id         = 'modal_background';
-   stage.appendChild(background);
-
-   var storeContainer = document.createElement('div');
-   storeContainer.id      = 'store';
-   stage.appendChild(storeContainer);
-   
-   var closeStoreButton = document.createElement('div');
-   closeStoreButton.id    = 'close_button';
-   closeStoreButton.setAttribute('onclick', 'javascript:closeStore()');
-   stage.appendChild(closeStoreButton);
-   
-   buildStore();
-
-   $(background).animate({'opacity': 1}, 'fast');
-   $(storeContainer).animate({'opacity': 1}, 'normal');
-   $(closeStoreButton).animate({'opacity': 1}, 'normal');
-}
-
-function closeStore() {
-  $('#store').animate({'opacity': 0}, 'fast', function(){$('#store').remove()});
-  $('#close_button').animate({'opacity': 0}, 'fast', function(){$('#close_button').remove()});
-  $('#modal_background').animate({'opacity': 0, }, 'normal', function(){$('#modal_background').remove()});
 }
 
 function showPopUp(options) {
