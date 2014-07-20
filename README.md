@@ -1,6 +1,6 @@
 ## Note
 
-Be aware: this sample has been superseded by https://github.com/fbsamples/android-friend-smash-v2 
+Be aware: this sample has been superseded by https://github.com/fbsamples/web-friend-smash-v2 
 Please refer to v2 of this sample to build on the latest version of the Facebook Platform.
 
 
